@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="am.ak.mybatis.data.client.ICategoryClient">
+
+    <resultMap id="categoryResultMap" type="category">
+        <id property="id" column="category_id"/>
+        <result property="creationDate" column="creation_date"/>
+        <association property="file" javaType="file">
+            <id property="id" column="file_id"/>
+            <result property="size" column="size"/>
+            <result property="name" column="name"/>
+            <!--<result property="language" column="language_id"/>-->
+            <result property="creationDate" column="file_creation_date"/>
+        </association>
+        <collection property="languages"
+                    ofType="language"
+                    select="getLanguagesCategoryId"
+                    column="category_id">
+            <id property="id" column="language_id"/>
+            <result property="text" column="text"/>
+            <result property="language" column="language_lcp_id"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="languageResultMap" type="language">
+        <id property="id" column="language_id"/>
+        <result property="text" column="text"/>
+        <result property="language" column="language_lcp_id"/>
+    </resultMap>
+
+    <insert id="add"
+            parameterType="category"
+            keyProperty="id">
+        INSERT INTO `category`
+        (language_id
+        ,file_id
+        ,parent_id
+        ,creation_date)
+        VALUES
+        (CONCAT
+        <foreach item="language" index="index" collection="languages" open="(" separator="," close=")">
+            #{language.id}, ","
+        </foreach>
+        ,#{file.id}
+        ,#{category.id}
+        ,#{creationDate});
+    </insert>
+
+    <select id="getById"
+            parameterType="_long"
+            resultMap="categoryResultMap">
+        SELECT c.`id` AS category_id
+              ,c.language_id AS category_language_id
+              ,c.file_id
+              ,c.parent_id
+              ,c.creation_date
+              ,f.id AS file_id
+              ,f.size
+              ,f.`name`
+              ,f.category_id
+              ,f.language_id
+              ,f.creation_date AS file_creation_date
+        FROM `category` c
+        LEFT JOIN `file` f
+          ON c.`file_id` = f.id
+        WHERE c.id = #{categoryId}
+    </select>
+
+    <select id="get"
+            parameterType="java.lang.Long"
+            resultMap="categoryResultMap">
+        SELECT c.`id` AS category_id
+              ,c.language_id AS category_language_id
+              ,c.file_id
+              ,c.creation_date
+              ,f.id AS file_id
+              ,f.size
+              ,f.`name`
+              ,f.category_id
+              ,f.language_id
+              ,f.creation_date AS file_creation_date
+        FROM `category` c
+        LEFT JOIN `file` f
+          ON c.`file_id` = f.id
+        WHERE c.`parent_id` IS NULL
+    </select>
+
+    <select id="getByParentId"
+            parameterType="java.lang.Long"
+            resultMap="categoryResultMap">
+        SELECT c.`id` AS category_id
+        ,c.language_id AS category_language_id
+        ,c.file_id
+        ,c.creation_date
+        ,f.id AS file_id
+        ,f.size
+        ,f.`name`
+        ,f.category_id
+        ,f.language_id
+        ,f.creation_date AS file_creation_date
+        FROM `category` c
+        LEFT JOIN `file` f
+        ON c.`file_id` = f.id
+        WHERE c.`parent_id` = #{parentId}
+    </select>
+
+    <select id="getLanguagesCategoryId"
+            parameterType="_long"
+            resultMap="languageResultMap">
+        SELECT l.id AS language_id
+              ,l.text
+              ,l.language_lcp_id
+        FROM `category` c
+        INNER JOIN `language` l
+          ON SPLIT_STR(c.`language_id`, ",", 1) = l.`id`
+          OR SPLIT_STR(c.`language_id`, ",", 2) = l.`id`
+          OR SPLIT_STR(c.`language_id`, ",", 3) = l.`id`
+        WHERE c.id = #{category_id}
+    </select>
+
+    <delete id="delete" parameterType="_long">
+        DELETE FROM `category`
+        WHERE id = #{categoryId}
+    </delete>
+</mapper>

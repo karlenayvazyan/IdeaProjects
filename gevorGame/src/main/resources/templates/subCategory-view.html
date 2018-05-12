@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>::Sub category ::</title>
+</head>
+<body>
+<a href="/logout">Logout</a>
+<table border="1">
+    <tr>
+        <td>Description am</td>
+        <td>Description en</td>
+        <td>Description ru</td>
+        <td>Files</td>
+        <td>Action</td>
+    </tr>
+    <tr th:each="cat : ${categories}">
+        <td th:each="language : ${cat.languages}">
+            <span th:text="${language.text}"></span>
+        </td>
+        <td>
+            <span th:each="file : ${cat.files}">
+                <span th:text="${file.name}"></span><br/>
+            </span>
+        </td>
+        <td>
+            <a th:href="@{/subCategory/} + ${categoryId} + '/delete/' + ${cat.id}">Delete sub category</a>
+        </td>
+    </tr>
+</table>
+<form action="#" th:action="@{subCategory}" th:object="${subCategoryFrom}" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>
+                <label for="languageAm">Language am</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{languages[0].text}" id="languageAm"/>
+                <input type="hidden" name="languages[0].language" value="am"/>
+            </td>
+            <td th:if="${#fields.hasErrors('languages[0].text')}" th:errors="*{languages[0].text}">
+                Language am required
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="languageEn">Language En</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{languages[1].text}" id="languageEn"/>
+                <input type="hidden" name="languages[1].language" value="en"/>
+            </td>
+            <td th:if="${#fields.hasErrors('languages[1].text')}" th:errors="*{languages[1].text}">
+                Language en required
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="languageRu">Language Ru</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{languages[2].text}" id="languageRu"/>
+                <input type="hidden" name="languages[2].language" value="ru"/>
+            </td>
+            <td th:if="${#fields.hasErrors('languages[2].text')}" th:errors="*{languages[2].text}">
+                Language ru required
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fileSize1">File size 1</label>
+            </td>
+            <td>
+                <input type="file" name="fileSize1" id="fileSize1"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fileSize2">File size 2</label>
+            </td>
+            <td>
+                <input type="file" name="fileSize2" id="fileSize2"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fileSize3">File size 3</label>
+            </td>
+            <td>
+                <input type="file" name="fileSize3" id="fileSize3"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fileSize4">File size 4</label>
+            </td>
+            <td>
+                <input type="file" name="fileSize4" id="fileSize4"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fileSize5">File size 5</label>
+            </td>
+            <td>
+                <input type="file" name="fileSize5" id="fileSize5"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="hidden" name="categoryId" th:value="${categoryId}"/>
+                <input type="submit" class="btn btn-primary"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

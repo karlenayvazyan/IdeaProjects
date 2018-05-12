@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="categoryManager" class="am.ak.mybatis.data.manager.impl.CategoryManagerImpl"/>
+
+    <bean id="fileManager" class="am.ak.mybatis.data.manager.impl.FileManagerImpl"/>
+
+    <bean id="languageManager" class="am.ak.mybatis.data.manager.impl.LanguageManagerImpl"/>
+
+    <bean id="lavalManager" class="am.ak.mybatis.data.manager.impl.LavalManagerImpl"/>
+
+    <bean id="soundManager" class="am.ak.mybatis.data.manager.impl.SoundManagerImpl"/>
+
+    <bean id="userManager" class="am.ak.mybatis.data.manager.impl.UserManagerImpl"/>
+</beans>

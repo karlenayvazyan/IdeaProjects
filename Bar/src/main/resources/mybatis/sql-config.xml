@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.2//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultStatementTimeout" value="10000"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="am.ak.mybatis.data.model.User" alias="user"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="am.ak.mybatis.data.handler.UserGenderTypeHandler"
+                     javaType="am.ak.mybatis.data.model.lcp.Gender"/>
+    </typeHandlers>
+
+    <mappers>
+        <mapper resource="mybatis/mapper/UserMapper.xml"/>
+    </mappers>
+
+</configuration>

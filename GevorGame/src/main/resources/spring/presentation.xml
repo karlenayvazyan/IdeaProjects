@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="loginAction" class="am.ak.mybatis.action.general.LoginAction" scope="prototype"/>
+
+    <bean id="addCategoryAction" class="am.ak.mybatis.action.user.AddCategoryAction" scope="prototype"/>
+
+    <bean id="homeAction" class="am.ak.mybatis.action.user.HomeAction" scope="prototype"/>
+
+    <bean id="deleteCategoryAction" class="am.ak.mybatis.action.user.DeleteCategoryAction" scope="prototype"/>
+
+    <bean id="editCategoryAction" class="am.ak.mybatis.action.user.EditCategoryAction" scope="prototype"/>
+</beans>

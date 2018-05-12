@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="am.ak.mybatis.data.client.IUserClient">
+
+    <resultMap id="userMap" type="user">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="surname" column="surname"/>
+        <result property="gender" column="gender_id"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="creationDate" column="creation_date"/>
+    </resultMap>
+
+    <insert id="add"
+            parameterType="user"
+            keyProperty="id">
+      INSERT INTO users (
+        name,
+        surname,
+        gender_id,
+        email,
+        password,
+        creation_date
+      ) VALUES (
+        #{name},
+        #{surname},
+        #{gender},
+        #{email},
+        #{password},
+        #{creationDate}
+      )
+    </insert>
+
+    <select id="isExists"
+            parameterType="string"
+            resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE email = #{email}
+    </select>
+
+    <select id="get"
+            parameterType="map"
+            resultMap="userMap">
+      SELECT *
+      FROM users u
+      WHERE u.email = #{email}
+      AND u.password = #{password}
+    </select>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="user" extends="user-settings">
+
+        <action name="userHome" class="homeAction">
+            <result name="success">WEB-INF/pages/user/home.jsp</result>
+        </action>
+
+        <action name="addCategoryView" class="addCategoryAction" method="view">
+            <result name="success">WEB-INF/pages/user/addCategory.jsp</result>
+        </action>
+
+        <action name="addCategory" class="addCategoryAction">
+            <result name="success" type="redirect">userHome.action</result>
+            <result name="input">WEB-INF/pages/user/home.jsp</result>
+        </action>
+
+        <action name="deleteCategory" class="deleteCategoryAction">
+            <result name="success" type="redirect">userHome.action</result>
+            <result name="input">WEB-INF/pages/user/home.jsp</result>
+        </action>
+
+        <action name="editCategory-view" class="editCategoryAction" method="view">
+            <result name="success">WEB-INF/pages/user/editCategory.jsp</result>
+            <result name="input">WEB-INF/pages/user/home.jsp</result>
+        </action>
+
+        <action name="editCategory" class="editCategoryAction">
+            <result name="success" type="redirect">userHome.action</result>
+            <result name="input">WEB-INF/pages/user/editCategory.jsp</result>
+        </action>
+    </package>
+</struts>

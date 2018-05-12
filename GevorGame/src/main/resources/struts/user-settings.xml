@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="user-settings" extends="struts-default" abstract="true">
+
+        <interceptors>
+            <interceptor name="authentication" class="am.ak.mybatis.action.user.interceptor.Authentication"/>
+            <interceptor-stack name="userStack">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="authentication"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="userStack"/>
+
+        <global-results>
+            <result name="login" type="redirect">home.action</result>
+            <result name="error" type="redirect">error.action</result>
+        </global-results>
+    </package>
+</struts>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="userClient" class="org.mybatis.spring.mapper.MapperFactoryBean"
+          p:sqlSessionFactory-ref="sqlSessionFactory"
+          p:mapperInterface="am.ak.mybatis.data.client.IUserClient"
+          p:sqlSessionTemplate-ref="sqlSessionTamplate"/>
+
+    <bean id="userDao" class="am.ak.mybatis.data.dao.impl.UserDaoImpl"/>
+
+</beans>

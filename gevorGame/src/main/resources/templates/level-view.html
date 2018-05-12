@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>::Level::</title>
+</head>
+<body>
+    <a href="/logout">Logout</a>
+    <table border="1">
+        <tr>
+            <td>Level number</td>
+            <td>Row count</td>
+            <td>Column count</td>
+            <td>Win min step</td>
+        </tr>
+        <tr th:each="level : ${levels}">
+            <td th:text="${level.levelNumber}"></td>
+            <td th:text="${level.rowCount}"></td>
+            <td th:text="${level.columnCount}"></td>
+            <td th:text="${level.winMinStep}"></td>
+        </tr>
+    </table>
+    <form action="#" th:action="@{level}" th:object="${levelForm}" method="post">
+        <table>
+            <tr>
+                <td>
+                    <label for="levelNumber">Level Number</label>
+                </td>
+                <td>
+                    <input type="number" th:field="*{levelNumber}" id="levelNumber"/>
+                </td>
+                <td th:if="${#fields.hasErrors('levelNumber')}" th:errors="*{levelNumber}">
+                    Level number required
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="rowCount">Row count</label>
+                </td>
+                <td>
+                    <input type="number" th:field="*{rowCount}" id="rowCount"/>
+                </td>
+                <td th:if="${#fields.hasErrors('rowCount')}" th:errors="*{rowCount}">
+                    Row count required
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="columnCount">Column count</label>
+                </td>
+                <td>
+                    <input type="number" th:field="*{columnCount}" id="columnCount"/>
+                </td>
+                <td th:if="${#fields.hasErrors('columnCount')}" th:errors="*{columnCount}">
+                    Column count required
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="winMinStep">Win min step</label>
+                </td>
+                <td>
+                    <input type="number" th:field="*{winMinStep}" id="winMinStep"/>
+                </td>
+                <td th:if="${#fields.hasErrors('winMinStep')}" th:errors="*{winMinStep}">
+                    Win min step required
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" name="categoryId" th:value="${categoryId}"/>
+                    <input type="submit" class="btn btn-primary"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

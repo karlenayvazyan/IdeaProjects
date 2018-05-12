@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="am.ak.mybatis.data.client.ILanguageClient">
+
+    <insert id="add"
+            parameterType="language"
+            keyProperty="id">
+        INSERT INTO `language`
+          (text
+          ,language_lcp_id)
+        VALUES
+          (#{text}
+          ,#{language});
+    </insert>
+
+    <update id="edit"
+            parameterType="language">
+        UPDATE `language`
+        SET `text` = #{text}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="delete"
+            parameterType="java.util.List">
+        DELETE FROM `language`
+        WHERE id IN
+        <foreach item="language" collection="list" index="index" separator="," open="(" close=")">
+            ${language.id}
+        </foreach>
+    </delete>
+</mapper>

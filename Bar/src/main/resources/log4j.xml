@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" [<!ENTITY logpath "/home/karlen/var/lib/tomcat7/logs/myBatisExample">]>
+
+<log4j:configuration>
+
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c (%M:%L) [%t] - %m%n"/>
+		</layout>
+	</appender>
+
+	<appender name="GeneralAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="&logpath;/error/general.log"/>
+		<param name="DatePattern"    value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c (%M:%L) [%t] - %m%n"/>
+		</layout>
+	</appender>
+
+	<appender name="ServiceClientAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="&logpath;/error/service-client/general.log"/>
+		<param name="DatePattern"    value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c (%M:%L) [%t] - %m%n"/>
+		</layout>
+	</appender>
+
+    <appender name="TrackerAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="&logpath;/tracker/tracker.log"/>
+		<param name="DatePattern"    value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c (%M:%L) [%t] - %m%n"/>
+		</layout>
+	</appender>
+
+    <appender name="PaymentAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="&logpath;/tracker/payment/payment.log"/>
+		<param name="DatePattern"    value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c (%M:%L) [%t] - %m%n"/>
+		</layout>
+	</appender>
+
+    <logger name="Tracker" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="TrackerAppender"/>
+    </logger>
+
+    <logger name="Payment" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="PaymentAppender"/>
+    </logger>
+
+    <!--<category name="am.delivery.service.client" additivity="false">-->
+        <!--<level value="error"/>-->
+        <!--<appender-ref ref="ServiceClientAppender"/>-->
+    <!--</category>-->
+
+    <logger name="log4j.logger.java.sql.PreparedStatement" additivity="false">
+        <level value="DEBUG"/>
+        <!--<appender-ref ref="ConsoleAppender"/>-->
+    </logger>
+
+	<root>
+		<level value ="DEBUG"/>
+		<!--<appender-ref ref="ConsoleAppender"/>-->
+		<appender-ref ref="GeneralAppender"/>
+        <appender-ref ref="TrackerAppender"/>
+	</root>
+	
+</log4j:configuration>

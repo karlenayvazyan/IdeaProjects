@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.action.extension" value="action"/>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+
+    <include file="struts/general.xml"/>
+
+    <include file="struts/user-settings.xml"/>
+    <include file="struts/user.xml"/>
+</struts>
